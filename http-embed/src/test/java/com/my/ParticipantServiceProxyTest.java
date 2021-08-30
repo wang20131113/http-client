@@ -1,11 +1,12 @@
 package com.my;
 
 import com.my.model.ServiceData;
+import com.my.serviceImpl.ParticipantServiceImpl;
 
 public class ParticipantServiceProxyTest {
 
 	public void test(ServiceData serviceData){
-		ParticipantServiceProxy participantServiceProxy = new ParticipantServiceProxy();
+		ParticipantServiceProxy<ParticipantServiceImpl> participantServiceProxy = new ParticipantServiceProxy<>(new ParticipantServiceImpl());
 		participantServiceProxy.striveDo(serviceData);
 	}
 	

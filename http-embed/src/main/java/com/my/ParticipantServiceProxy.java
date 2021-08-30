@@ -13,19 +13,22 @@ import com.my.serviceImpl.ParticipantServiceImpl;
  * @author davy wang
  *
  */
-public class ParticipantServiceProxy {
+public class ParticipantServiceProxy<T extends ParticipantService> {
 
 	private static ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 	/**
 	 * 具体的服务类
 	 */
-	private ParticipantService participantService = new ParticipantServiceImpl();
-	
+	private T participantService;
+
+	public ParticipantServiceProxy(T participantService){
+		this.participantService = participantService;
+	}
 	/**
 	 * 代理执行
 	 * @param 分布服务的数据
 	 */
-	public void striveDo(final ServiceData serviceData) {
+	public void striveDo(ServiceData serviceData) {
 		this.striveDo(serviceData, 1);
 	}
 	
@@ -50,7 +53,7 @@ public class ParticipantServiceProxy {
 				scheduledExecutorService.shutdown();
 			}
 			if(!scheduledExecutorService.isShutdown()){
-				scheduledExecutorService.schedule(new SubRunnable(serviceData,nextCount), byCount, TimeUnit.MILLISECONDS);
+				scheduledExecutorService.schedule(new SubRunnable(participantService,serviceData,nextCount), byCount, TimeUnit.MILLISECONDS);
 			}
 			Thread.currentThread().interrupt();
 			
@@ -58,12 +61,13 @@ public class ParticipantServiceProxy {
 		}
 	}
 	
-	class SubRunnable extends ParticipantServiceProxy implements Runnable{
+	class SubRunnable  extends ParticipantServiceProxy<T>  implements Runnable{
 
 		private ServiceData serviceData;
 		private int count;
 		
-		public SubRunnable(ServiceData serviceData, int count){
+		public SubRunnable(T service, ServiceData serviceData, int count){
+			super(service);
 			this.serviceData = serviceData;
 			this.count = count;
 		}
