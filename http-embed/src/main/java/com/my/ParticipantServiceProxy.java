@@ -4,6 +4,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.my.assist.CountGenerator;
+
 /**
  * 暂时使用类实现，待后续采用接口。
  * @author davy wang
@@ -11,7 +15,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class ParticipantServiceProxy<T extends ParticipantService> {
 
+	//TODO
 	private static ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+	
+	@Autowired
+	private CountGenerator countGenerator;
 	/**
 	 * 具体的服务类
 	 */
@@ -25,7 +33,6 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 	 * @param 分布服务的数据
 	 */
 	public void striveDo(Object serviceData) {
-		assert "test".equals("test") : "测试错误。";
 		this.striveDo(serviceData, 1);
 	}
 	
@@ -45,7 +52,7 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 			int nextCount = count+1;
 			long byCount = 0;
 			try{
-				byCount = TimeIntermission.getByCount(nextCount);
+				byCount = this.countGenerator.getByCount(nextCount);
 			}catch(Throwable t){
 				scheduledExecutorService.shutdown();
 			}

@@ -2,9 +2,12 @@ package com.my.serviceImpl;
 
 import java.util.Calendar;
 
+import org.springframework.stereotype.Service;
+
 import com.my.ParticipantService;
 import com.my.model.ServiceData;
 
+@Service
 public class ParticipantServiceImpl implements ParticipantService {
 
 	public void forwardProcess(Object paramServiceData) {
