@@ -5,20 +5,20 @@ import com.my.serviceImpl.ParticipantServiceImpl;
 
 public class ParticipantServiceProxyTest {
 
-	public void test(ServiceData serviceData){
+	public void test(Object serviceData){
 		ParticipantServiceProxy<ParticipantServiceImpl> participantServiceProxy = new ParticipantServiceProxy<>(new ParticipantServiceImpl());
 		participantServiceProxy.striveDo(serviceData);
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
 		
-		new ParticipantServiceProxyTest().test(new ServiceData());
+		//new ParticipantServiceProxyTest().test(new ServiceData());
 		
-		//Thread.sleep(5000);
+		Thread.sleep(5000);
 		System.out.println("-----------------second time ---------------");
-		/*ServiceData serviceData = new ServiceData();
+		ServiceData serviceData = new ServiceData();
 		serviceData.setFlag("true");
-		new ParticipantServiceProxyTest().test(serviceData);*/
+		new ParticipantServiceProxyTest().test(serviceData);
 		
 		
 	}

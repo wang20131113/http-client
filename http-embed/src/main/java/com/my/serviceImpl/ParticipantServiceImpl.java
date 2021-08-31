@@ -7,7 +7,9 @@ import com.my.model.ServiceData;
 
 public class ParticipantServiceImpl implements ParticipantService {
 
-	public void forwardProcess(ServiceData serviceData) {
+	public void forwardProcess(Object paramServiceData) {
+		assert paramServiceData instanceof ServiceData;
+		ServiceData serviceData = (ServiceData)paramServiceData;
 		System.out.println(Calendar.getInstance().getTime() + " : forwardProcess method run.");
 		if("true".equals(serviceData.getFlag())){
 			System.out.println(Calendar.getInstance().getTime() + " : forwardProcess method run complete.");

@@ -2,11 +2,7 @@ package com.my;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import com.my.model.ServiceData;
-import com.my.serviceImpl.ParticipantServiceImpl;
 
 /**
  * 暂时使用类实现，待后续采用接口。
@@ -28,12 +24,13 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 	 * 代理执行
 	 * @param 分布服务的数据
 	 */
-	public void striveDo(ServiceData serviceData) {
+	public void striveDo(Object serviceData) {
+		assert "test".equals("test") : "测试错误。";
 		this.striveDo(serviceData, 1);
 	}
 	
 	
-	void striveDo(final ServiceData serviceData,int count ) {
+	void striveDo(Object serviceData,int count ) {
 		
 		try{
 			//TODO 约束一下这种类型的服务（网络远程访问类型，特点是：时间长，不保证成功）
@@ -63,10 +60,10 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 	
 	class SubRunnable  extends ParticipantServiceProxy<T>  implements Runnable{
 
-		private ServiceData serviceData;
+		private Object serviceData;
 		private int count;
 		
-		public SubRunnable(T service, ServiceData serviceData, int count){
+		public SubRunnable(T service, Object serviceData, int count){
 			super(service);
 			this.serviceData = serviceData;
 			this.count = count;
