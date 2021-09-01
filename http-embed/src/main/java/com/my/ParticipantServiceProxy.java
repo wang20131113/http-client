@@ -1,6 +1,5 @@
 package com.my;
 
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -9,14 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.my.assist.CountGenerator;
 
 /**
- * 暂时使用类实现，待后续采用接口。
  * @author davy wang
  *
  */
 public class ParticipantServiceProxy<T extends ParticipantService> {
 
-	//TODO
-	private static ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+	@Autowired
+	private ScheduledExecutorService scheduledExecutorService;
 	
 	@Autowired
 	private CountGenerator countGenerator;
