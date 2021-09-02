@@ -1,11 +1,11 @@
-package com.my.serviceImpl;
+package com.micrward.example.serviceImpl;
 
 import java.util.Calendar;
 
 import org.springframework.stereotype.Service;
 
-import com.my.ParticipantService;
-import com.my.model.ServiceData;
+import com.micrward.ParticipantService;
+import com.micrward.example.model.ServiceData;
 
 @Service
 public class ParticipantServiceImpl implements ParticipantService {

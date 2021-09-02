@@ -1,4 +1,4 @@
-package com.my.model;
+package com.micrward.example.model;
 
 
 public class ServiceData {

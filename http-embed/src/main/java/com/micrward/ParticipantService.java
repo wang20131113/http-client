@@ -1,4 +1,4 @@
-package com.my;
+package com.micrward;
 
 
 public interface ParticipantService {

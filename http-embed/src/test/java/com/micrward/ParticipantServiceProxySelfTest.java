@@ -1,4 +1,4 @@
-package com.my;
+package com.micrward;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.my.boot.DemoApplication;
-import com.my.model.ServiceData;
+import com.micrward.boot.DemoApplication;
+import com.micrward.example.ParticipantServiceProxyImpl;
+import com.micrward.example.model.ServiceData;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DemoApplication.class)

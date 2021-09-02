@@ -1,4 +1,4 @@
-package com.my.assist;
+package com.micrward.assist;
 
 public class DefaultCountGenerator implements CountGenerator{
 

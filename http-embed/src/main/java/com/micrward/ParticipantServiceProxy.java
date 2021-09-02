@@ -1,11 +1,11 @@
-package com.my;
+package com.micrward;
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.my.assist.CountGenerator;
+import com.micrward.assist.CountGenerator;
 
 /**
  * @author davy wang

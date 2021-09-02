@@ -1,4 +1,4 @@
-package com.my.config;
+package com.micrward.config;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.my.assist.CountGenerator;
-import com.my.assist.DefaultCountGenerator;
+import com.micrward.assist.CountGenerator;
+import com.micrward.assist.DefaultCountGenerator;
 
 @Configuration
 public class AssistConfigure {
