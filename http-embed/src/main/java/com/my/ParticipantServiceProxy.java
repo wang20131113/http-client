@@ -38,15 +38,14 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 	void striveDo(Object serviceData,int count ) {
 		
 		try{
-			//TODO 约束一下这种类型的服务（网络远程访问类型，特点是：时间长，不保证成功）
+			//约束一下这种类型的服务（网络远程访问类型，特点是：时间长，不保证成功）
 			participantService.forwardProcess(serviceData);
 			if( 1 < count ){
 				scheduledExecutorService.shutdown();
 			}
 		}catch(RuntimeException connectTimeoutException){
-			participantService.backProcess();
+			participantService.backProcess(serviceData);
 			
-			//TODO 把生产间隔时间的类抽象成接口
 			int nextCount = count+1;
 			long byCount = 0;
 			try{

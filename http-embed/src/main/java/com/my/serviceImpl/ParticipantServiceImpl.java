@@ -21,7 +21,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 		}
 	}
 
-	public void backProcess() {
+	public void backProcess(Object serviceData) {
 		System.out.println(Calendar.getInstance().getTime() + " : backProcess method run.");
 	}
 }

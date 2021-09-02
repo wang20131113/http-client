@@ -5,6 +5,6 @@ public interface ParticipantService {
 
 	void forwardProcess(Object serviceData);
 
-	void backProcess();
+	void backProcess(Object serviceData);
 
 }
