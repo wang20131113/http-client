@@ -1,6 +1,8 @@
 package com.micrward;
 
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,49 +36,63 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 		this.striveDo(serviceData, 1);
 	}
 	
-	
-	void striveDo(Object serviceData,int count ) {
+	public ScheduledExecutorService getScheduledExecutorService() {
+		return scheduledExecutorService;
+	}
+	public void setScheduledExecutorService(
+			ScheduledExecutorService scheduledExecutorService) {
+		this.scheduledExecutorService = scheduledExecutorService;
+	}
+	public CountGenerator getCountGenerator() {
+		return countGenerator;
+	}
+	public void setCountGenerator(CountGenerator countGenerator) {
+		this.countGenerator = countGenerator;
+	}
+	void striveDo(Object serviceData,int count ){
 		
+		long byCount = 0;
 		try{
-			//约束一下这种类型的服务（网络远程访问类型，特点是：时间长，不保证成功）
-			participantService.forwardProcess(serviceData);
-			if( 1 < count ){
-				scheduledExecutorService.shutdown();
-			}
-		}catch(RuntimeException connectTimeoutException){
-			participantService.backProcess(serviceData);
-			
-			int nextCount = count+1;
-			long byCount = 0;
-			try{
-				byCount = this.countGenerator.getByCount(nextCount);
-			}catch(Throwable t){
-				scheduledExecutorService.shutdown();
-			}
-			if(!scheduledExecutorService.isShutdown()){
-				scheduledExecutorService.schedule(new SubRunnable(participantService,serviceData,nextCount), byCount, TimeUnit.MILLISECONDS);
-			}
-			Thread.currentThread().interrupt();
-			
-		}finally{
+			byCount = this.countGenerator.getByCount(count);
+			System.out.println("count: "+ count +" byCount: " + byCount);
+		}catch(Throwable t){
+			t.printStackTrace();
+			scheduledExecutorService.shutdown();
 		}
+		scheduledExecutorService.schedule(new SubRunnable((ParticipantServiceProxy<T>)this,serviceData,count), byCount, TimeUnit.MILLISECONDS);
 	}
 	
 	class SubRunnable  extends ParticipantServiceProxy<T>  implements Runnable{
-
 		private Object serviceData;
 		private int count;
-		
+
 		public SubRunnable(T service, Object serviceData, int count){
 			super(service);
 			this.serviceData = serviceData;
 			this.count = count;
 		}
 		
-		public void run() {
-			super.striveDo(serviceData, count);
-			
+		public SubRunnable(ParticipantServiceProxy<T> proxy, Object serviceData, int count){
+			super(proxy.participantService);
+			super.setCountGenerator(proxy.getCountGenerator());
+			super.setScheduledExecutorService(proxy.getScheduledExecutorService());
+			this.serviceData = serviceData;
+			this.count = count;
 		}
 		
+		public void run() {
+			try{
+				super.participantService.forwardProcess(serviceData);
+			}catch(RuntimeException connectTimeoutException){
+				participantService.backProcess(serviceData);
+				try{
+					super.striveDo(serviceData, count+1);
+					
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+			
+		}
 	}
 }

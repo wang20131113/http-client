@@ -1,4 +1,4 @@
-package com.micrward.boot;
+package com.micrward.bootstrap;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -13,4 +13,6 @@ public class ParticipantServiceProxyImpl extends ParticipantServiceProxy<Partici
 		super(participantService);
 	}
 
+	//TODO增加模板方法，解决业务参数转型
+	
 }
