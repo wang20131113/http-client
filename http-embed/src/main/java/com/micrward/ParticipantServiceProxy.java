@@ -1,8 +1,6 @@
 package com.micrward;
 
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,19 +34,6 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 		this.striveDo(serviceData, 1);
 	}
 	
-	public ScheduledExecutorService getScheduledExecutorService() {
-		return scheduledExecutorService;
-	}
-	public void setScheduledExecutorService(
-			ScheduledExecutorService scheduledExecutorService) {
-		this.scheduledExecutorService = scheduledExecutorService;
-	}
-	public CountGenerator getCountGenerator() {
-		return countGenerator;
-	}
-	public void setCountGenerator(CountGenerator countGenerator) {
-		this.countGenerator = countGenerator;
-	}
 	void striveDo(Object serviceData,int count ){
 		
 		long byCount = 0;
@@ -74,8 +59,8 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 		
 		public SubRunnable(ParticipantServiceProxy<T> proxy, Object serviceData, int count){
 			super(proxy.participantService);
-			super.setCountGenerator(proxy.getCountGenerator());
-			super.setScheduledExecutorService(proxy.getScheduledExecutorService());
+			super.countGenerator = proxy.countGenerator;
+			super.scheduledExecutorService = proxy.scheduledExecutorService;
 			this.serviceData = serviceData;
 			this.count = count;
 		}

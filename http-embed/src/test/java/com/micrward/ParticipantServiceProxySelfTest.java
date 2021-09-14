@@ -28,14 +28,10 @@ public class ParticipantServiceProxySelfTest {
 		
 		System.out.println("process start");
 		
-		for(int i=0;i<1000*100;i++){
-			Math.pow(1.23, 2.56);
-			for(int j=0;j<1000*100;j++){
-				Math.pow(1.23, 2.56);
-				for(int k=0;k<1000*100;k++){
-					Math.pow(1.23, 2.56);
-				}
-			}
+		try {
+			Thread.sleep(10*1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 			
 		System.out.println("process end");
