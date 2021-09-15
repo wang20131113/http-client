@@ -1,4 +1,4 @@
-package com.micrward.zdeamon;
+package com.micrward.deamon;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class RetryServiceDeamonThread implements DisposableBean, Runnable {
 		
 		participantServiceProxyImpl.striveDo(serviceData);
 		
-		System.out.println("----testStriveDo test finish------");
+		System.out.println("----testStriveDo test finish-------");
 		
 		try {
 			Thread.sleep(1*1000);
