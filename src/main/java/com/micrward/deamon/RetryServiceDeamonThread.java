@@ -2,12 +2,13 @@ package com.micrward.deamon;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.micrward.example.ParticipantServiceProxyImpl;
 import com.micrward.example.model.ServiceData;
 
-@Component()
+@Component
 public class RetryServiceDeamonThread implements DisposableBean, Runnable {
 
 	@Autowired
@@ -30,7 +31,13 @@ public class RetryServiceDeamonThread implements DisposableBean, Runnable {
 
     private void doStuff() {
 		System.out.println("--- doStuff run..");
-		
+		while(participantServiceProxyImpl == null){
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}			
+		}
 		ServiceData serviceData = new ServiceData();
 		
 		participantServiceProxyImpl.striveDo(serviceData);
@@ -38,7 +45,7 @@ public class RetryServiceDeamonThread implements DisposableBean, Runnable {
 		System.out.println("----testStriveDo test finish-------");
 		
 		try {
-			Thread.sleep(1*1000);
+			Thread.sleep(2*1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
