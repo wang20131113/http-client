@@ -31,7 +31,7 @@ public class ParticipantServiceProxy<T extends ParticipantService> {
 	 * @param 分布服务的数据
 	 */
 	public void striveDo(Object serviceData) {
-		System.out.println("***************=======================*************************s");
+		System.out.println("***************=======================*************************");
 		//this.striveDo(serviceData, 1);
 	}
 	

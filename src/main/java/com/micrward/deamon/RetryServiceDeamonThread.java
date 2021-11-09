@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.micrward.example.ParticipantServiceProxyImpl;
 import com.micrward.example.model.ServiceData;
 
-@Component
+//@Component
 public class RetryServiceDeamonThread implements DisposableBean, Runnable {
 
 	@Autowired
@@ -48,17 +48,10 @@ public class RetryServiceDeamonThread implements DisposableBean, Runnable {
 			Thread.sleep(2*1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
-			
-		try {
-			Thread.sleep(1*1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}	
 	}
 
-	@Override
+	//@Override
     public void destroy(){
         someCondition = false;
     }
